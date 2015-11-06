@@ -1,0 +1,11 @@
+app:
+  build: .
+  ports:
+    - "5059:5059"
+  links:
+    - redis
+  restart: always
+
+redis:
+  image: redis
+  restart: always
