@@ -6,7 +6,7 @@ var redis = require("redis"),
     client = redis.createClient('redis://redis:6379');
 
 var REDIS_KEY = "beers"; // the key in redis
-var REDIS_EXPIRY = 3600; // one hour cache in redis
+var REDIS_EXPIRY = parseInt(process.env.EXPIRY); // one hour cache in redis
 
 var express = require('express');
 var router = express.Router();

@@ -1,5 +1,6 @@
 app:
   build: .
+  env_file: .env
   ports:
     - "127.0.0.1:5059:5059"
   links:
