@@ -16,9 +16,9 @@ router.get('/', function(req, res, next) {
 
   client.get(REDIS_KEY, function(err, reply) {
     if (reply) {
-      var beers = JSON.parse(reply);
+      var payload = JSON.parse(reply);
 
-      res.json(beers);
+      res.json(payload);
       return;
     }
 
@@ -56,10 +56,15 @@ router.get('/', function(req, res, next) {
           cb(null, upcommingBeers);
         }
       }, function(err, results) {
-        client.set(REDIS_KEY, JSON.stringify(results));
+        var payload = {
+          beer: results,
+          pulled: new Date()
+        };
+
+        client.set(REDIS_KEY, JSON.stringify(payload));
         client.expire(REDIS_KEY, REDIS_EXPIRY);
 
-        res.json(results);
+        res.json(payload);
       });
     });
   });
